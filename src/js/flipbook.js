@@ -69,7 +69,6 @@ $(document).ready(function() {
         let bookOn = $(this).parent('.front').attr('title');
         let bookId = $(this).closest('.pages').attr('id');
         if($(".bookmark").hasClass('on')) {
-
             $("nav ul").append("<li class='bookLi' data-page='" +bookId+"'>"+bookOn+"</li>")
         } else {
             $(".bookLi[data-page='"+bookId+"']").remove();
