@@ -68,12 +68,20 @@ $(document).ready(function() {
         $(this).toggleClass('on');
         let bookOn = $(this).parent('.front').attr('title');
         let bookId = $(this).closest('.pages').attr('id');
-        if($(".bookmark").hasClass('on')) {
-            $("nav ul").append("<li class='bookLi' data-page='" +bookId+"'>"+bookOn+"</li>")
+        if($(this).hasClass('on')) {
+            if($(".bookLi[data-page='"+bookId+"']").length === 0) {
+                $("nav ul").append("<li class='bookLi' data-page='" +bookId+"'>"+bookOn+"<span></span></li>");
+            } 
         } else {
             $(".bookLi[data-page='"+bookId+"']").remove();
-            console.log($(".bookLi[data-page='"+bookId+"']"));
         }
+    });
+    $(document).on("click", ".bookLi span", function() {
+        let xBtn = $(this).parent('.bookLi').attr('data-page');
+
+        $(this).parent('.bookLi').remove();
+        $(".pages[id='"+xBtn+"']").find('.bookmark').removeClass('on');
+
     });
     // $(window).resize(function() {
     //     if($(window).width() > 768) { 	

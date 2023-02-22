@@ -203,6 +203,18 @@ nav ul li.on {
     background: #ddd;
     font-weight: bold;
 }
+.bookLi {
+   position: relative;
+}
+.bookLi span {
+    position: absolute;
+    top: 50%;
+    right: 50px;
+    transform: translateY(-50%);
+    width: 20px;
+    height: 20px;
+    background: pink;
+}
 /*nav end*/
 /*bookmark start*/
 .bookmark {
