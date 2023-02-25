@@ -83,19 +83,4 @@ $(document).ready(function() {
         $(".pages[id='"+xBtn+"']").find('.bookmark').removeClass('on');
 
     });
-    // $(window).resize(function() {
-    //     if($(window).width() > 768) { 	
-            	
-    //     } else {
-    //         // 2장씩 보이던 것의 뒷 페이지를 앞 페이지로 바꿔준다.
-    //         $(".back").addClass('front').removeClass('.back');	
-    //         // front 클래스를 가진 div 뒤에 back이라는 뒷 페이지를 만들어준다.
-    //         $(".front").after("<div class='back card'></div>");
-    //         // 새로 생선된 페이지들 다시 2 div씩 묶기
-    //         var divs = $(".wrapper > div");
-    //         for (let i = 0; i < divs.length; i += 2) {
-    //             divs.slice(i, i + 2).wrapAll("<section class='pages'></section>");
-    //         }
-    //     }
-    // });
 });
