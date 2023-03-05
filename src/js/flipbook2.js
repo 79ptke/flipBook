@@ -1,40 +1,33 @@
-window.onload = function(){
-
-    //let divs = document.querySelectorAll(".wrapper > div");
-
-    function wrapPages() {
-        let frontP = document.querySelector('.front');
-        var pages = document.createElement('section');
-        pages.classList.add('pages');
+window.addEventListener('load', function() {
+    function paging() {
+        //const wrapper = document.querySelector('.wrapper');
+        const fronts = document.querySelectorAll('.front');
         
-        pages.innerHTML = frontP.outerHTML;
+        fronts.forEach(function(front) { 
+            // pages 생성
+            const $pages = document.createElement('div');
+            $pages.classList.add('pages');
+            // back 생성
+            const $back = document.createElement('div');
+            $back.classList.add('back');
+            // prev 버튼 생성
+            const $prev = document.createElement('div');
+            $prev.classList.add('prev');
+            // next 버튼 생성
+            const $next = document.createElement('div');
+            $next.classList.add('next');
 
-        // frontP.forEach(function(front) {
-        //     front.parentNode.insertBefore(pages, frontP);
-        //     front.remove();
-        // });
-        frontP.parentNode.insertBefore(pages, frontP);
-        frontP.remove();
+            $pages.innerHTML = front.outerHTML;
+            front.parentNode.insertBefore($pages, front); // front 페이지 pages로 감싸기
+            front.remove(); //기존에 있던 front 페이지 삭제
+            $pages.appendChild($back);
+            $pages.appendChild($prev);
+            $pages.appendChild($next);    
+        });
+        // 첫번째 페이지에 current 클래스 추가
+        document.querySelector('.pages').classList.add('current');
     }
-    wrapPages();
-}
 
-
-
-
-
-// console.log(frontP);
-// frontP.forEach(function(front) {
-//     console.log(front);
-//     front.insertAdjacentHTML("afterbegin","<div class='back card'></div>");
-//     console.log(front.insertAdjacentHTML("aftereend","<div class='back card'></div>"));
-// });
-//frontP.insertAdjacentHTML("<div class='back card'></div>");
-//frontP.append("<div class='bookmark'></div>")
-
-// for (let i = 0; i < divs.length; i += 2) {
-//     divs.slice(i, i + 2).wrapAll("<section class='pages'></section>");
-// }
-
-//document.querySelector('.page').classList.add("current");
+    paging();
+});
 
