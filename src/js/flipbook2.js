@@ -19,16 +19,52 @@ window.addEventListener('load', function() {
             const $next = document.createElement('div');
             $next.classList.add('next');
             $next.classList.add('btn');
+            // bookmark 생성
+            const $bookmark = document.createElement('div');
+            $bookmark.classList.add('bookmark');
+
 
             $pages.innerHTML = front.outerHTML;
             front.parentNode.insertBefore($pages, front); // front 페이지 pages로 감싸기
             front.remove(); //기존에 있던 front 페이지 삭제
             $pages.appendChild($back);
             $pages.appendChild($prev);
-            $pages.appendChild($next);    
+            $pages.appendChild($next); 
+            //console.log(front.appendChild($bookmark));
+            //front.appendChild($bookmark);     
         });
         // 첫번째 페이지에 current 클래스 추가
         document.querySelector('.pages').classList.add('current');
+
+        // pages에 id 추가
+        const page = document.querySelectorAll('.pages');
+        page.forEach(function(el,idx) {
+            el.setAttribute("id","p"+idx);
+
+            // nav 안 li 생성
+            const navLi = `
+                        <li class='menuLi' data-page='p` +idx+`'>`+el.firstChild.getAttribute('title')+`</li>
+                        `
+            document.querySelector("nav ul").insertAdjacentHTML("beforeend", navLi);
+        });
+
+        // 메뉴 클릭
+        document.addEventListener('click',function(e) {
+            if(e.target && e.target.className === 'menuLi') {
+                const datapage = e.target.getAttribute('data-page');
+                page.forEach(function(p) {
+                    p.classList.remove('flipped','current','flip_right','flip_left');
+
+                    console.log(datapage);
+                    console.log(p.getAttribute('id'));
+
+                    if(datapage == p.getAttribute('id')) {
+                        p.classList.add("current");
+                        p.previousElementSibling.classList.add('flipped');
+                    }
+                });
+            }
+        });
         
         //prev 버튼 클릭
         document.addEventListener('click',function(e){
@@ -59,6 +95,8 @@ window.addEventListener('load', function() {
                 }
              }
          });
+
+         //
     }
 
     paging();
