@@ -20,18 +20,16 @@ window.addEventListener('load', function() {
             $next.classList.add('next');
             $next.classList.add('btn');
             // bookmark 생성
-            const $bookmark = document.createElement('div');
-            $bookmark.classList.add('bookmark');
-
-
+            front.innerHTML +=  `<div class="bookmark"></div>`;
+            
             $pages.innerHTML = front.outerHTML;
             front.parentNode.insertBefore($pages, front); // front 페이지 pages로 감싸기
             front.remove(); //기존에 있던 front 페이지 삭제
             $pages.appendChild($back);
             $pages.appendChild($prev);
             $pages.appendChild($next); 
-            //console.log(front.appendChild($bookmark));
-            //front.appendChild($bookmark);     
+            // console.log(front.appendChild($bookmark));
+            // front.appendChild($bookmark);    
         });
         // 첫번째 페이지에 current 클래스 추가
         document.querySelector('.pages').classList.add('current');
@@ -65,6 +63,28 @@ window.addEventListener('load', function() {
                 });
             }
         });
+
+        // 북마크
+        document.addEventListener('click',function(e){
+            if(e.target && e.target.className === 'bookmark' || e.target && e.target.className === 'bookmark on'){
+                  e.target.classList.toggle('on');
+                  let bookOn = e.target.parentElement.title;
+                  let bookId = e.target.parentElement.parentElement.id;
+
+                  const bookLi = document.createElement('li');
+                  bookLi.classList.add('bookLi');
+                  bookLi.setAttribute("data-page",bookId);
+                  bookLi.textContent = bookOn;
+
+                  if(e.target.classList.contains('on')) {
+                      if(bookLi) {
+                        document.querySelector('nav ul').appendChild(bookLi);
+                      } else {
+                          bookLi.remove(); //수정해야함.
+                      }
+                  }
+             }
+         });
         
         //prev 버튼 클릭
         document.addEventListener('click',function(e){
