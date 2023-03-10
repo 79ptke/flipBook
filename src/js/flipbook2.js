@@ -46,9 +46,9 @@ window.addEventListener('load', function() {
             document.querySelector("nav ul").insertAdjacentHTML("beforeend", navLi);
         });
 
-        // 메뉴 클릭
+        // 메뉴 & 북마크 클릭
         document.addEventListener('click',function(e) {
-            if(e.target && e.target.className === 'menuLi') {
+            if(e.target && e.target.className === 'menuLi' || e.target && e.target.className === 'bookLi') {
                 const datapage = e.target.getAttribute('data-page');
                 page.forEach(function(p) {
                     p.classList.remove('flipped','current','flip_right','flip_left');
@@ -67,37 +67,44 @@ window.addEventListener('load', function() {
         // 북마크
         document.addEventListener('click',function(e){
             if(e.target && e.target.className === 'bookmark' || e.target && e.target.className === 'bookmark on'){
-                  e.target.classList.toggle('on');
-                  let bookOn = e.target.parentElement.title;
-                  let bookId = e.target.parentElement.parentElement.id;
+                e.target.classList.toggle('on');
+                let bookOn = e.target.parentElement.title;
+                let bookId = e.target.parentElement.parentElement.id;
 
-                  const bookLi = document.createElement('li');
-                  bookLi.classList.add('bookLi');
-                  bookLi.setAttribute("data-page",bookId);
-                  bookLi.textContent = bookOn;
+                const bookLi = document.createElement('li');
+                bookLi.classList.add('bookLi');
+                bookLi.setAttribute("data-page",bookId);
+                bookLi.textContent = bookOn;
 
-                  if(e.target.classList.contains('on')) {
-                      if(bookLi) {
+                if(e.target.classList.contains('on')) {
+                    if(bookLi) {
+                        console.log(bookLi);
                         document.querySelector('nav ul').appendChild(bookLi);
-                      } else {
-                          bookLi.remove(); //수정해야함.
-                      }
-                  }
-             }
-         });
+                    } 
+                } else {
+                    const liBooks = document.querySelectorAll('.bookLi');
+                    liBooks.forEach(function(liBook) {
+                        console.log(liBook.getAttribute("data-page"));
+                        if (liBook.getAttribute("data-page") == bookId) {
+                            liBook.remove();
+                        }
+                    });
+                }
+            }
+        });
         
         //prev 버튼 클릭
         document.addEventListener('click',function(e){
             if(e.target && e.target.className === 'prev btn'){
-                  if(document.querySelector('.pages').classList.contains('current')) {
-                      alert('첫 페이지 입니다.');
-                  } else {
-                      document.querySelector(".current").previousElementSibling.classList.add('current','flip_right');
-                      document.querySelector(".current").classList.remove('flipped');
-                      document.querySelectorAll('.current')[1].classList.remove('current');
-                  }
-             }
-         });
+                if(document.querySelector('.pages').classList.contains('current')) {
+                    alert('첫 페이지 입니다.');
+                } else {
+                    document.querySelector(".current").previousElementSibling.classList.add('current','flip_right');
+                    document.querySelector(".current").classList.remove('flipped');
+                    document.querySelectorAll('.current')[1].classList.remove('current');
+                }
+            }
+        });
          //next 버튼 클릭
         document.addEventListener('click',function(e){
             if(e.target && e.target.className === 'next btn'){
@@ -113,10 +120,10 @@ window.addEventListener('load', function() {
                         document.querySelector(".current").classList.remove('current');
                     },1500);
                 }
-             }
-         });
+            }
+        });
 
-         //
+        //
     }
 
     paging();
