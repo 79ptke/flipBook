@@ -179,17 +179,64 @@ header {
     left: 0;
     width: 100%;
     height: 100px;
-    background: #2d7fcc;
+    /* background: #2d7fcc; */
+    background: #fff;
+}
+header .wrap {
+    display: flex;
+    align-items: center;
+    max-width: 1280px;
+    width: 100%;
+    height: 100%;
+    margin: 0 auto;
+}
+header .menu span {
+    display: block;
+    width: 24px;
+    height: 2px;
+    border-radius: 5px;
+    background: #000;
+    cursor: pointer;
+}
+header .menu span:nth-child(2n) {
+    margin: 8px 0;
 }
 /*header end*/
+.bg {
+    position: fixed;
+    width: 100%;
+    height: 100vh;
+    background: rgba(0,0,0,0.5);
+    opacity: 0;
+    visibility: hidden;
+    transition: 0.3s;
+    z-index: 5;
+}
+.bg.show {
+    opacity: 1;
+    visibility: visible;
+}
 /*nav start*/
 nav {
     position: fixed;
     top: 0;
-    left: 0;
+    left: -300px;
     width: 300px;
     height: 100%;
     background: #fff;
+    transition: 0.3s;
+    z-index: 6;
+}
+nav.on {
+    left: 0;
+}
+nav .x_btn {
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+nav ul {
+    margin-top: 60px;
 }
 nav ul li {
     width: 100%;
@@ -204,7 +251,7 @@ nav ul li.on {
     font-weight: bold;
 }
 .bookLi {
-   position: relative;
+    position: relative;
 }
 .bookLi span {
     position: absolute;
@@ -221,12 +268,12 @@ nav ul li.on {
     position: absolute;
     top: 0;
     right: 80px;
-    width: 30px;
-    height: 80px;
-    background: skyblue;
+    width: 45px;
+    height: 49px;
+    background: url(../img/bookmark.png) center / contain no-repeat;
 }
 .bookmark.on {
-    background: blue;
+    background: url(../img/bookmark_on.png) center / contain no-repeat;
 }
 /*bookmark end*/
 /*flipbook 커스텀 시작*/

@@ -123,7 +123,17 @@ window.addEventListener('load', function() {
             }
         });
 
-        //
+        // 햄버거 메뉴 클릭
+        document.querySelector('header .menu').addEventListener('click', function () {
+            document.querySelector('nav').classList.add('on');
+            document.querySelector('.bg').classList.add('show');
+        });
+        // 햄버거 메뉴 x 버튼 클릭
+        document.querySelector('nav .x_btn').addEventListener('click', function () {
+            document.querySelector('nav').classList.remove('on');
+            document.querySelector('.bg').classList.remove('show');
+        });
+
     }
 
     paging();
