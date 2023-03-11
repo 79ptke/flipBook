@@ -1,4 +1,4 @@
 # flip book
-### 한 페이지로 이루어진 flip book입니다.
+### jquery로 구현한 html 반응형 구현중
 
 - javascript로 바꾸기 (jquery 사용하지 말자)
