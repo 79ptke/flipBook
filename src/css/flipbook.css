@@ -291,3 +291,14 @@ nav ul li.on {
         width: 100%;
     }
 } */
+
+#flipBook.pc {
+    width: 1000px;
+    height: 750px;
+}
+.pc .pages {
+    width: 50%;
+}
+.pc .current .btn.prev {
+    left: -500px;
+}
