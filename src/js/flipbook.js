@@ -19,7 +19,10 @@ $(document).ready(function() {
     $(".pages").each(function(index) {
         $(this).attr('id', 'p'+index);
         // nav 안 li 생성
-        $("nav ul").append("<li data-page='p" +index+"'>"+$(this).find('.front').attr('title')+"</li>")
+        $("nav ul").append("<li data-page='p" +index+"'>"+$(this).find('.front').attr('title')+"</li>");
+        if($(this).children('.front').length === 2) {
+            $("nav ul").append("<li data-page='p" +(index+1)+"'>"+$(this).find('.front').last().attr('title')+"</li>");
+        }
     });
     // pc id 추가
     // $(".pc .pages").each(function(index) {
@@ -228,6 +231,19 @@ $(window).on('resize', function(){
             <div class="btn prev" alt="이전버튼"></div>
             <div class="btn next" alt="다음버튼"></div>
         `);
+
+        // id추가
+        $("nav ul li").remove(); // 무한으로 생기는 현상 막음
+        $(".pages").each(function(index) {
+            $(this).attr('id', 'p'+index);
+            // nav 안 li 생성
+            
+            $("nav ul").append("<li data-page='p" +index+"'>"+$(this).find('.front').attr('title')+"</li>");
+            if($(this).children('.front').length === 2) {
+                $("nav ul").append("<li data-page='p" +(index+1)+"'>"+$(this).find('.front').last().attr('title')+"</li>");
+            }
+            
+        });
         
     //   if($("#flipBook").hasClass("pc")) {
     //     $(".back").remove();
@@ -267,6 +283,7 @@ $(window).on('resize', function(){
                 <div class="btn next" alt="다음버튼"></div>
             `);
             // id추가
+            $("nav ul li").remove(); // 무한으로 생기는 현상 막음
             $(".pages").each(function(index) {
                 $(this).attr('id', 'p'+index);
                 // nav 안 li 생성
