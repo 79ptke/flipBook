@@ -42,12 +42,15 @@ $(document).ready(function() {
     });
     // 메뉴 클릭
     $(document).on("click", "nav ul li", function() {
-        let dataPage = $(this).attr('data-page');
+        if(!$(this).hasClass('bookmarkTitle')) {
 
-        $(".pages").removeClass('current').removeClass('flipped').removeClass('flip_right').removeClass('flip_left');
+            let dataPage = $(this).attr('data-page');
 
-        $("#"+dataPage).addClass('current');
-        $("#"+dataPage).prev('.pages').addClass('flipped');
+            $(".pages").removeClass('current').removeClass('flipped').removeClass('flip_right').removeClass('flip_left');
+    
+            $("#"+dataPage).addClass('current');
+            $("#"+dataPage).prev('.pages').addClass('flipped');
+        }
 
     });
     // 북마크 버튼 클릭
@@ -56,8 +59,9 @@ $(document).ready(function() {
         let bookOn = $(this).parent('.front').attr('title');
         let bookId = $(this).closest('.pages').attr('id');
         if($(this).hasClass('on')) {
-            if($(".bookLi[data-page='"+bookId+"']").length === 0) {
-                $("nav ul").append("<li class='bookLi' data-page='" +bookId+"'>"+bookOn+"<span></span></li>");
+            if($(".bookLi[data-page='"+bookId+"']").length < 2 && $(this).parent('.front:nth-child(2)')) {
+                console.log('dd');
+                $("nav #bookmark").append("<li class='bookLi' data-page='" +bookId+"'>"+bookOn+"<span></span></li>");
             } 
         } else {
             $(".bookLi[data-page='"+bookId+"']").remove();
@@ -110,19 +114,19 @@ function pc() {
     $(".pages:first-child").addClass("current");
     // next, prev 버튼 추가
     $(".pages").append(`
-        <div class="btn prev" alt="이전버튼"></div>
-        <div class="btn next" alt="다음버튼"></div>
+        <div class="btn prev" alt="이전버튼">&lt;</div>
+        <div class="btn next" alt="다음버튼">&gt;</div>
     `);
 
     // id추가
-    $("nav ul li").remove(); // 무한으로 생기는 현상 막음
+    $("nav ul li").not('.bookLi').remove(); // 무한으로 생기는 현상 막음
     $(".pages").each(function(index) {
         $(this).attr('id', 'p'+index);
         // nav 안 li 생성
         
-        $("nav ul").append("<li data-page='p" +index+"'>"+$(this).find('.front').attr('title')+"</li>");
+        $("nav ul").not('#bookmark').append("<li data-page='p" +index+"'>"+$(this).find('.front').attr('title')+"</li>");
         if($(this).children('.front').length === 2) {
-            $("nav ul").append("<li data-page='p" +(index+1)+"'>"+$(this).find('.front').last().attr('title')+"</li>");
+            $("nav ul").not('#bookmark').append("<li data-page='p" +(index+1)+"'>"+$(this).find('.front').last().attr('title')+"</li>");
         }
         
     });
@@ -141,15 +145,15 @@ function mobile() {
         $(".pages:first-child").addClass("current");
         // next, prev 버튼 추가
         $(".pages").append(`
-            <div class="btn prev" alt="이전버튼"></div>
-            <div class="btn next" alt="다음버튼"></div>
+            <div class="btn prev" alt="이전버튼">&lt;</div>
+            <div class="btn next" alt="다음버튼">&gt;</div>
         `);
         // id추가
-        $("nav ul li").remove(); // 무한으로 생기는 현상 막음
+        $("nav ul li").not('.bookLi').remove(); // 무한으로 생기는 현상 막음
         $(".pages").each(function(index) {
             $(this).attr('id', 'p'+index);
             // nav 안 li 생성
-            $("nav ul").append("<li data-page='p" +index+"'>"+$(this).find('.front').attr('title')+"</li>")
+            $("nav ul").not('#bookmark').append("<li data-page='p" +index+"'>"+$(this).find('.front').attr('title')+"</li>")
         });
     }
 }

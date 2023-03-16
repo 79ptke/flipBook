@@ -83,17 +83,19 @@ main {
 }
 /*prev,next button custom start*/
 .current .btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     position: absolute;
-    top: 0;
+    top: 50%;
+    transform: translateY(-50%);
     width: 50px;
     height: 100%;
-    background: pink;
-    opacity: 0;
+    /* background: pink; */
+    font-size: 60px;
+    opacity: 0.5;
     z-index: 50;
 }
-/* .current .btn.prev {
-    left: -500px;
-} */
 .pages:first-child.current .btn.prev {
     left: 0;
 }
@@ -261,6 +263,14 @@ nav ul li.on {
     width: 20px;
     height: 20px;
     background: pink;
+}
+nav #bookmark {
+    border-top: 1px solid #2dccb8;
+} 
+nav #bookmark .bookmarkTitle {
+    background: #2dccb8;
+    font-weight: bold;
+    color: #fff;
 }
 /*nav end*/
 /*bookmark start*/
