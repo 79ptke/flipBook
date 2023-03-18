@@ -59,10 +59,11 @@ $(document).ready(function() {
         let bookOn = $(this).parent('.front').attr('title');
         let bookId = $(this).closest('.pages').attr('id');
         if($(this).hasClass('on')) {
-            if($(".bookLi[data-page='"+bookId+"']").length < 2 && $(this).parent('.front:nth-child(2)')) {
-                console.log('dd');
+            if($(".bookLi[data-page='"+bookId+"']").length < 2 && $(this).parent('.front').is("div:nth-child(even)")) {
+                $("nav #bookmark").append("<li class='bookLi' data-page='" +(bookId + 1)+"'>"+bookOn+"<span></span></li>");
+            } else {
                 $("nav #bookmark").append("<li class='bookLi' data-page='" +bookId+"'>"+bookOn+"<span></span></li>");
-            } 
+            }
         } else {
             $(".bookLi[data-page='"+bookId+"']").remove();
         }
