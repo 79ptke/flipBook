@@ -115,6 +115,7 @@ $(document).ready(function() {
 $(window).on('resize', function(){
     if (window.innerWidth >= 768) {
         pc();
+        bookmarkPc();
     } 
     else {
         mobile();
@@ -181,4 +182,25 @@ function mobile() {
             $("nav ul").not('#bookmark').append("<li data-page='p" +index+"'>"+$(this).find('.front').attr('title')+"</li>")
         });
     }
+}
+
+function bookmarkPc() {
+    // let pageId;
+    let pageTitle = $(".front").attr('title');
+    let bookText  = $(".bookLi").not('li.bookmarkTitle').text();
+    // console.log(pageTitle);
+    // console.log(bookText);
+    // if (pageTitle == bookText) {
+    //     console.log('dd');
+    // }
+
+
+    $(".bookLi").attr('data-page','');
+    $(".bookLi").not('.bookmarkTitle').each(function() {
+        //console.log($(this));
+        console.log($('.front:contains("'+$(this).not('li.bookmarkTitle').text()+'")'));
+        if(bookText == pageTitle) {
+            $(this).attr('data-page','멍멍');
+        }
+    });
 }
