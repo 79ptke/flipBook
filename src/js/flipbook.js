@@ -58,13 +58,33 @@ $(document).ready(function() {
         $(this).toggleClass('on');
         let bookOn = $(this).parent('.front').attr('title');
         let bookId = $(this).closest('.pages').attr('id');
-        if($(this).hasClass('on')) {
-            if($(".bookLi[data-page='"+bookId+"']").length < 2 && $(this).parent('.front').is("div:nth-child(even)")) {
-                $("nav #bookmark").append("<li class='bookLi' data-page='" +(bookId + 1)+"'>"+bookOn+"<span></span></li>");
-            } else {
-                $("nav #bookmark").append("<li class='bookLi' data-page='" +bookId+"'>"+bookOn+"<span></span></li>");
-            }
-        } else {
+        // pc 
+        if($(this).hasClass('on')
+            && window.innerWidth > 768
+            && $(".bookLi[data-page='"+bookId+"']").length < 2 
+            && $(this).parent('.front').is("div:nth-child(even)")      
+        ) {
+             $("nav #bookmark").append("<li class='bookLi even' data-page='p" + (Number(bookId.replace('p','')) + 1)+"'>"+bookOn+"<span></span></li>");
+        } else if (
+            $(this).hasClass('on')
+            && window.innerWidth > 768
+            && $(".bookLi[data-page='"+bookId+"']").length < 2 
+            && $(this).parent('.front').is("div:nth-child(odd)") 
+        ) {
+            $("nav #bookmark").append("<li class='bookLi' data-page='" +bookId+"'>"+bookOn+"<span></span></li>");
+        } else if (
+            $(this).hasClass('on') === false
+            && window.innerWidth > 768
+            && $(".bookLi[data-page='"+bookId+"']").length < 2 
+            && $(this).parent('.front').is("div:nth-child(even)") 
+        ) {
+            $(".bookLi.even[data-page='p" + (Number(bookId.replace('p','')) + 1)+"']").remove();
+        } else if (
+            $(this).hasClass('on') === false
+            && window.innerWidth > 768
+            && $(".bookLi[data-page='"+bookId+"']").length < 2 
+            && $(this).parent('.front').is("div:nth-child(odd)") 
+        ) {
             $(".bookLi[data-page='"+bookId+"']").remove();
         }
     });
