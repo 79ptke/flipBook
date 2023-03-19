@@ -69,7 +69,9 @@ $(document).ready(function() {
             $(this).hasClass('on')
             && window.innerWidth > 768
             && $(".bookLi[data-page='"+bookId+"']").length < 2 
-            && $(this).parent('.front').is("div:nth-child(odd)") 
+            && $(this).parent('.front').is("div:nth-child(odd)")
+            || $(this).hasClass('on')
+            && window.innerWidth <= 768
         ) {
             $("nav #bookmark").append("<li class='bookLi' data-page='" +bookId+"'>"+bookOn+"<span></span></li>");
         } else if (
@@ -84,6 +86,8 @@ $(document).ready(function() {
             && window.innerWidth > 768
             && $(".bookLi[data-page='"+bookId+"']").length < 2 
             && $(this).parent('.front').is("div:nth-child(odd)") 
+            || (this).hasClass('on') === false
+            && window.innerWidth <= 768 
         ) {
             $(".bookLi[data-page='"+bookId+"']").remove();
         }
