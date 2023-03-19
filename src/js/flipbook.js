@@ -115,10 +115,11 @@ $(document).ready(function() {
 $(window).on('resize', function(){
     if (window.innerWidth >= 768) {
         pc();
-        bookmarkPc();
+        bookmark();
     } 
     else {
         mobile();
+        bookmark();
     }
 });
 
@@ -184,23 +185,32 @@ function mobile() {
     }
 }
 
-function bookmarkPc() {
-    // let pageId;
-    let pageTitle = $(".front").attr('title');
-    let bookText  = $(".bookLi").not('li.bookmarkTitle').text();
-    // console.log(pageTitle);
-    // console.log(bookText);
-    // if (pageTitle == bookText) {
-    //     console.log('dd');
-    // }
-
-
+// 북마크 반응형 시 변경
+function bookmark() {
     $(".bookLi").attr('data-page','');
-    $(".bookLi").not('.bookmarkTitle').each(function() {
-        //console.log($(this));
-        console.log($('.front:contains("'+$(this).not('li.bookmarkTitle').text()+'")'));
-        if(bookText == pageTitle) {
-            $(this).attr('data-page','멍멍');
-        }
+    $(".front").each(function() {
+        let pageTitle = $(this).attr('title');
+        let pagesTitle = $(this).parent('.pages').attr('id');
+        let evenPage = $(this).is("div:nth-child(even)");
+        let oddPage = $(this).is("div:nth-child(odd)");
+
+        $(".bookLi").not('.bookmarkTitle').each(function() {
+            let bookText  = $(this).text();
+            if(
+                bookText===pageTitle 
+                && evenPage
+                && window.innerWidth > 768
+            ) {
+                $(this).attr('data-page', 'p' + (Number(pagesTitle.replace('p','')) + 1));
+            } else if (
+                bookText===pageTitle 
+                && oddPage
+                && window.innerWidth > 768
+                || bookText===pageTitle 
+                && window.innerWidth <= 768
+            ) {
+                $(this).attr('data-page', pagesTitle);
+            }
+        });
     });
 }
