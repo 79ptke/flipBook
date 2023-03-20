@@ -127,7 +127,7 @@ $(window).on('resize', function(){
 // pc 사이즈
 function pc() {
     $("#flipBook").addClass("pc").removeClass("mobile");
-    var index = $('.pages').index('.current');
+    var index = $('.pages.current').index();
     console.log(index);
     $(".front").unwrap(".pages"); // 기존에 있는 pages 없애기
     $(".btn").remove(); // 버튼 삭제
@@ -163,7 +163,7 @@ function pc() {
 // 모바일 사이즈
 function mobile() {
     $("#flipBook").removeClass("pc").addClass("mobile"); 
-    var index = $('.pages').index('.current');
+    var index = $('.pages.current').index();
     $(".front").removeClass("back");
     $(".front").unwrap(".pages"); // 기존에 있는 pages 없애기
     $(".btn").remove(); // 버튼 삭제
