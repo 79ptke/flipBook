@@ -7,7 +7,8 @@ $(document).ready(function() {
         $("#flipBook").removeClass("pc").addClass("mobile"); 
         mobile();
     }
-    
+    $(".pages").removeClass("current");
+    $(".pages:first-child").addClass("current");
     //북마크 추가
     $(".front").append("<div class='bookmark'></div>");
     // prev 버튼 클릭
@@ -126,7 +127,8 @@ $(window).on('resize', function(){
 // pc 사이즈
 function pc() {
     $("#flipBook").addClass("pc").removeClass("mobile");
-
+    var index = $('.pages').index('.current');
+    console.log(index);
     $(".front").unwrap(".pages"); // 기존에 있는 pages 없애기
     $(".btn").remove(); // 버튼 삭제
     $(".blank").remove();
@@ -138,7 +140,7 @@ function pc() {
         divs.slice(i, i + 2).wrapAll("<section class='pages'></section>");
     }
     // 첫번째 페이지에 current 클래스 추가
-    $(".pages:first-child").addClass("current");
+    //$(".pages:first-child").addClass("current");
     // next, prev 버튼 추가
     $(".pages").append(`
         <div class="btn prev" alt="이전버튼">&lt;</div>
@@ -155,12 +157,13 @@ function pc() {
         if($(this).children('.front').length === 2) {
             $("nav ul").not('#bookmark').append("<li data-page='p" +(index+1)+"'>"+$(this).find('.front').last().attr('title')+"</li>");
         }
-        
     });
+    $('.pages').eq(index).addClass('current');
 }
 // 모바일 사이즈
 function mobile() {
     $("#flipBook").removeClass("pc").addClass("mobile"); 
+    var index = $('.pages').index('.current');
     $(".front").removeClass("back");
     $(".front").unwrap(".pages"); // 기존에 있는 pages 없애기
     $(".btn").remove(); // 버튼 삭제
@@ -169,7 +172,7 @@ function mobile() {
         $(".front").after("<div class='back card blank'></div>");
         $(".wrapper > .blank").remove();
         // 첫번째 페이지에 current 클래스 추가
-        $(".pages:first-child").addClass("current");
+        //$(".pages:first-child").addClass("current");
         // next, prev 버튼 추가
         $(".pages").append(`
             <div class="btn prev" alt="이전버튼">&lt;</div>
@@ -183,6 +186,7 @@ function mobile() {
             $("nav ul").not('#bookmark').append("<li data-page='p" +index+"'>"+$(this).find('.front').attr('title')+"</li>")
         });
     }
+    $('.pages').eq(index).addClass('current');
 }
 
 // 북마크 반응형 시 변경
@@ -214,3 +218,10 @@ function bookmark() {
         });
     });
 }
+
+// current 클래스 붙은 페이지 찾기
+// function findCurrentPage() {
+//     var index = $('.pages').index('.current');
+//     $(".pages:nth-child("+ index +")").addClass('current');
+
+// }
