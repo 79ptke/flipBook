@@ -128,7 +128,6 @@ $(window).on('resize', function(){
 function pc() {
     $("#flipBook").addClass("pc").removeClass("mobile");
     var index = $('.pages.current').index();
-    console.log(index);
     $(".front").unwrap(".pages"); // 기존에 있는 pages 없애기
     $(".btn").remove(); // 버튼 삭제
     $(".blank").remove();
@@ -158,7 +157,16 @@ function pc() {
             $("nav ul").not('#bookmark').append("<li data-page='p" +(index+1)+"'>"+$(this).find('.front').last().attr('title')+"</li>");
         }
     });
-    $('.pages').eq(index).addClass('current');
+
+    // 반응형시 current페이지 표시
+    if (index > 0) {
+        $('.pages').eq(index).addClass('current');
+        $('.pages').eq(index).prev().addClass('flipped');
+        console.log('여기');
+    } else {
+        $(".pages:first-child").addClass("current");
+    }
+    //$('.pages').eq(index).addClass('current');
 }
 // 모바일 사이즈
 function mobile() {
@@ -171,8 +179,6 @@ function mobile() {
         $(".front").wrap("<section class='pages'></section>");
         $(".front").after("<div class='back card blank'></div>");
         $(".wrapper > .blank").remove();
-        // 첫번째 페이지에 current 클래스 추가
-        //$(".pages:first-child").addClass("current");
         // next, prev 버튼 추가
         $(".pages").append(`
             <div class="btn prev" alt="이전버튼">&lt;</div>
@@ -186,6 +192,7 @@ function mobile() {
             $("nav ul").not('#bookmark').append("<li data-page='p" +index+"'>"+$(this).find('.front').attr('title')+"</li>")
         });
     }
+    // 반응형시 current페이지 표시
     $('.pages').eq(index).addClass('current');
 }
 
