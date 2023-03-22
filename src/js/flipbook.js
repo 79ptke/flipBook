@@ -9,6 +9,9 @@ $(document).ready(function() {
     }
     $(".pages").removeClass("current");
     $(".pages:first-child").addClass("current");
+    $(".front").each(function(idx,item) {
+        $(item).attr('data-item','page'+idx);
+    });
     //북마크 추가
     $(".front").append("<div class='bookmark'></div>");
     // prev 버튼 클릭
@@ -112,22 +115,10 @@ $(document).ready(function() {
     });
 });
 
-// 반응형
-$(window).on('resize', function(){
-    if (window.innerWidth >= 768) {
-        pc();
-        bookmark();
-    } 
-    else {
-        mobile();
-        bookmark();
-    }
-});
-
 // pc 사이즈
 function pc() {
     $("#flipBook").addClass("pc").removeClass("mobile");
-    var index = $('.pages.current').index();
+    var index = $(".pages.current").find('.front').attr('data-item'); 
     $(".front").unwrap(".pages"); // 기존에 있는 pages 없애기
     $(".btn").remove(); // 버튼 삭제
     $(".blank").remove();
@@ -159,19 +150,14 @@ function pc() {
     });
 
     // 반응형시 current페이지 표시
-    if (index > 0) {
-        $('.pages').eq(index).addClass('current');
-        $('.pages').eq(index).prev().addClass('flipped');
-        console.log('여기');
-    } else {
-        $(".pages:first-child").addClass("current");
-    }
-    //$('.pages').eq(index).addClass('current');
+    $(".front[data-item='"+index+"']").parent('.pages').addClass('current');
+    $(".front[data-item='"+index+"']").parent('.pages').prev().addClass('flipped');
 }
 // 모바일 사이즈
 function mobile() {
     $("#flipBook").removeClass("pc").addClass("mobile"); 
-    var index = $('.pages.current').index();
+    //var index = $('.pages.current').index();
+    var index = $(".pages.current").find('.front').attr('data-item'); 
     $(".front").removeClass("back");
     $(".front").unwrap(".pages"); // 기존에 있는 pages 없애기
     $(".btn").remove(); // 버튼 삭제
@@ -193,7 +179,8 @@ function mobile() {
         });
     }
     // 반응형시 current페이지 표시
-    $('.pages').eq(index).addClass('current');
+    $(".front[data-item='"+index+"']").parent('.pages').addClass('current');
+    $(".front[data-item='"+index+"']").parent('.pages').prev().addClass('flipped');
 }
 
 // 북마크 반응형 시 변경
@@ -226,9 +213,15 @@ function bookmark() {
     });
 }
 
-// current 클래스 붙은 페이지 찾기
-// function findCurrentPage() {
-//     var index = $('.pages').index('.current');
-//     $(".pages:nth-child("+ index +")").addClass('current');
-
-// }
+// 반응형
+$(window).on('resize', function(){
+    if (window.innerWidth >= 768) {
+        pc();
+        bookmark();
+    } 
+    else {
+        mobile();
+        bookmark();
+    }
+    findCurrent();
+});
