@@ -150,8 +150,13 @@ function pc() {
     });
 
     // 반응형시 current페이지 표시
-    $(".front[data-item='"+index+"']").parent('.pages').addClass('current');
-    $(".front[data-item='"+index+"']").parent('.pages').prev().addClass('flipped');
+    if(String(index).replace('page','')%2 === 0) {
+        $(".front[data-item='"+index+"']").parent('.pages').addClass('current');
+        $(".front[data-item='"+index+"']").parent('.pages').prev().addClass('flipped');
+    } else {
+        $(".front[data-item='"+index+"']").parent('.pages').next().addClass('current');
+        $(".front[data-item='"+index+"']").parent('.pages').addClass('flipped');
+    }
 }
 // 모바일 사이즈
 function mobile() {
@@ -179,8 +184,13 @@ function mobile() {
         });
     }
     // 반응형시 current페이지 표시
-    $(".front[data-item='"+index+"']").parent('.pages').addClass('current');
-    $(".front[data-item='"+index+"']").parent('.pages').prev().addClass('flipped');
+    if(String(index).replace('page','')%2 === 0) {
+        $(".front[data-item='"+index+"']").parent('.pages').addClass('current');
+        $(".front[data-item='"+index+"']").parent('.pages').prev().addClass('flipped');
+    } else {
+        $(".front[data-item='"+index+"']").parent('.pages').next().addClass('current');
+        $(".front[data-item='"+index+"']").parent('.pages').addClass('flipped');
+    }
 }
 
 // 북마크 반응형 시 변경
@@ -223,5 +233,4 @@ $(window).on('resize', function(){
         mobile();
         bookmark();
     }
-    findCurrent();
 });
