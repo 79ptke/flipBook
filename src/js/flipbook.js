@@ -19,6 +19,7 @@ $(document).ready(function() {
         if($(".pages:first-child").hasClass("current")) {
             alert('첫 페이지 입니다.');
         } else {
+            $(".prev,.next").fadeOut();
             $(".current")
                     .removeClass('current')
                     //.addClass('flipped')
@@ -26,13 +27,18 @@ $(document).ready(function() {
                     .addClass('current flip_right')
                     .removeClass('flipped')
                     .siblings();
+            setTimeout(function() {
+                $(".prev,.next").fadeIn();
+            },100);
         }
+        $('video').trigger('pause');
     });
     // next 버튼 클릭
     $(document).on("click", ".next", function() {
         if($(".pages:last-child").hasClass("current")) {
             alert('마지막 페이지 입니다.');
         } else {
+            $(".prev,.next").fadeOut();
             $(".pages.current").removeClass('flip_right').addClass('flip_left');
             setTimeout(function() {
                 $(".current")
@@ -41,8 +47,12 @@ $(document).ready(function() {
                     .next('.pages')
                     .addClass('current')
                     .siblings();
-            },1500);
+            },500);
+            setTimeout(function() {
+                $(".prev,.next").fadeIn();
+            },100);
         }
+        $('video').trigger('pause');
     });
     // 메뉴 클릭
     $(document).on("click", "nav ul li", function() {
@@ -152,7 +162,7 @@ function pc() {
     // 반응형시 current페이지 표시
     if(String(index).replace('page','')%2 === 0) {
         $(".front[data-item='"+index+"']").parent('.pages').addClass('current');
-        $(".front[data-item='"+index+"']").parent('.pages').prev().addClass('flipped');
+        $(".front[data-item='"+index+"']").parent('.pages').prevAll().addClass('flipped');
     } else {
         $(".front[data-item='"+index+"']").parent('.pages').next().addClass('current');
         $(".front[data-item='"+index+"']").parent('.pages').addClass('flipped');
