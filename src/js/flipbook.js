@@ -123,6 +123,176 @@ $(document).ready(function() {
         $("nav").removeClass("on");
         $(".bg").removeClass("show");
     });
+
+
+    
+    var dragItems = $('.imgDrag .drag');
+    var dropItems = $('.imgDrag').find('.drop');
+
+    // 퍼즐 전체 함수
+    function puzzle() {
+        dragItems.each(function() {
+            var thisDrag = $(this);
+            thisDrag[0].addEventListener('dragstart', dragStart);
+            thisDrag[0].addEventListener('drag', drag);
+            thisDrag[0].addEventListener('dragend', dragEnd);
+        });
+
+        dropItems.each(function() {
+            var thisDrop = $(this);
+            thisDrop[0].addEventListener('dragenter', dragEnter);
+            thisDrop[0].addEventListener('dragover', dragOver);
+            thisDrop[0].addEventListener('dragleave', dragLeave);
+            thisDrop[0].addEventListener('drop', drop);
+        });
+    }
+    puzzle();
+
+    var dragCon;
+
+    // 드래그 시작
+    function dragStart(event) {
+        var drag = event.target;
+        dragCon = event.target;
+
+        event.dataTransfer.effectAllowed = 'copy';
+
+        var imgSrc = $(dragCon).prop('src');
+        var imgHTML = $(dragCon).prop('outerHTML');
+
+        try {
+            event.dataTransfer.setData('text/uri-list', imgSrc);
+            event.dataTransfer.setData('text/html', imgHTML);
+        } catch (e) {
+            event.dataTransfer.setData('text', imgSrc);
+        }
+
+        $(drag).addClass('drag_active');
+    }
+
+    // 드래그 된게 해당 영역에 들어갈 때 호출
+    function dragEnter(event) {
+        var drop = this;
+
+        event.dataTransfer.dropEffect = 'copy';
+        $(drop).addClass('drop_active');
+
+        event.preventDefault();
+        event.stopPropagation();
+    }
+
+    // 드래그 시 해당 영역 위에 있는 동안 계속해서 호출
+    function dragOver(event) {
+        var drop = this;
+
+        event.dataTransfer.dropEffect = 'copy';
+
+        $(drop).addClass('drop_active');
+
+        event.preventDefault();
+        event.stopPropagation();
+    }
+
+    // 드래그 된게 해당 영역 내부에서 떠날때 호출
+    function dragLeave(event) {
+        var drop = this;
+        $(drop).removeClass('drop_active');
+    }
+
+    // 드래그 될때 호출
+    function drag(event) {
+        // 지우면 드래그 안됨
+    }
+
+    // 드래그 해제 시 호출
+    function dragEnd(event) {
+        var drag = this;
+        $(drag).removeClass('drag_active');
+    }
+
+    // 드래그 드롭 했을때
+    function drop(event) {
+        var drop = this;
+
+        if($(drop).hasClass("drop")) {
+            var dataList, dataHTML, dataText;
+    
+            try {
+                dataList = event.dataTransfer.getData('text/uri-list');
+                dataHTML = event.dataTransfer.getData('text/html');
+            } catch (e) {
+                dataText = event.dataTransfer.getData('text');
+            }
+
+            if (dataHTML) {
+                $(drop).empty();
+                $(drop).prepend(dataHTML); // 드래그한 요소의 html 복사 후 넣기
+                var drag = $(drop).find('.drag');
+            } else {
+                $(drop).empty();
+                $(drop).prepend($(dragCon).clone());
+                var drag = $(drop).find('.drag');
+            }
+
+            puzzleChk(drop, drag);
+            puzzleComplete();
+
+            event.preventDefault();
+            event.stopPropagation();
+            // 퍼즐이 맞게 잘 들어갔으면 그 이후 추가 드롭 막기
+            if($(drop).hasClass("correct")) {
+                $(drop).removeClass("drop").addClass("correctAnswer");
+            }
+        }
+    }
+
+    // 해당 퍼즐 위치가 맞는지 확인
+    function puzzleChk(drop, drag) {
+        var imageValue = $(drag).attr('data-value');
+        var dropValue = $(drop).attr('data-value');
+
+        if (imageValue == dropValue) {
+            $(drop).removeClass('incorrect').addClass('correct');
+            $(drag).attr('draggable', 'false');
+
+            $(dragCon).hide();
+        } else {
+            $(drop).removeClass('correct').addClass('incorrect');
+            //incorrect라면 해당 퍼즐 삭제
+            if($(drop).hasClass('incorrect')) {
+                $(drop).find("img").remove();
+                $(".popupArea").fadeIn();
+                setTimeout(function() {
+                    $(".popupArea").fadeOut();
+                },3000);
+            }
+        }
+    }
+
+    // 퍼즐 완성 확인
+    function puzzleComplete() {
+        var correctItems = dropItems.filter('.correct');
+        if (correctItems.length == dropItems.length) {
+            $('.messageArea').empty();
+            $('.messageArea').append('<h3>퍼즐을 완성했습니다!</h3>');
+        } else {
+            $('.messageArea').empty();
+        }
+    }
+
+    // 다시 풀기 버튼 클릭 시
+    $('.resetBtn').on('click', function() {
+        $('.imgDrag').find('.correctAnswer').children('img').remove();
+        $('.imgDrag').find('.correctAnswer').removeClass('correct incorrect drop_active correctAnswer').addClass('drop');
+        $('.messageArea').empty();
+        $('.imgDrag .drag').show();
+    });
+
+    // 팝업 X 버튼 클릭 시   
+    $(".popupArea .popupWrap .popup .x_btn").click(function() {
+        $(".popupArea").fadeOut();
+    });
+    
 });
 
 // pc 사이즈
