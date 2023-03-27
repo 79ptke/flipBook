@@ -318,7 +318,7 @@ function pc() {
     `);
 
     // id추가
-    $("nav ul li").not('.bookLi').remove(); // 무한으로 생기는 현상 막음
+    $("nav ul li").not('.bookLi,.contentLi').remove(); // 무한으로 생기는 현상 막음
     $(".pages").each(function(index) {
         $(this).attr('id', 'p'+index);
         // nav 안 li 생성

@@ -1,6 +1,9 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&display=swap');
+
 * {
     padding: 0;
     margin: 0;
+    font-family: 'Montserrat', sans-serif;
 }
 
 ul,li {
@@ -85,14 +88,34 @@ main {
 }
 .pages:first-child .front {
     box-shadow: none;
-    background: #000;
+    background: #2e2e2d;
     color: #fff;
 }
-.pages:first-child .titleArea{
+.pages:first-child .front.back {
+    background: #fff;
+    box-shadow: inset -7px 0 30px -7px rgb(0 0 0 / 40%);
+    z-index: 10;
+    -webkit-transform: rotateY(180deg);
+    transform: rotateY(180deg);
+}
+.pages:first-child .titleArea {
     width: 100%; 
     height: 40%;
+    color: #ffb000;
 }
-.pages:first-child .coverBg{ 
+.pages:first-child .titleArea h5 {
+    font-size: 24px;
+}
+.pages:first-child .titleArea h1 {
+    margin: 4px 0 40px;
+    font-size: 48px;
+    font-weight: bold;
+}
+.pages:first-child .titleArea p {
+    font-size: 18px;
+    line-height: 1.4;
+}
+.pages:first-child .coverBg { 
     width: 100%; 
     height: 60%;
     background: #ffb000;
@@ -269,7 +292,7 @@ nav {
     height: 100%;
     background: #fff;
     transition: 0.3s;
-    z-index: 6;
+    z-index: 101;
 }
 nav.on {
     left: 0;
@@ -309,8 +332,9 @@ nav ul li.on {
 nav #bookmark {
     border-top: 1px solid #2dccb8;
 } 
+nav ul li.contentLi,
 nav #bookmark .bookmarkTitle {
-    background: #2dccb8;
+    background: #ffb000;
     font-weight: bold;
     color: #fff;
 }
@@ -411,7 +435,7 @@ nav #bookmark .bookmarkTitle {
     padding: 12px 15px;
     display: block;
     cursor: pointer;
-    margin: 0 auto;
+    margin: 10% auto;
     min-width: 100px;
     clear: both;
 }
@@ -422,6 +446,7 @@ nav #bookmark .bookmarkTitle {
 }
 .messageArea h3 {
     font-size: 18px;
+    text-align: center;
     color: #000;
 }
 /*팝업 영역 시작*/
