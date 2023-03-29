@@ -153,6 +153,11 @@ main {
 .current .btn.next {
     right: 0;
 }
+.current .btn img {
+    width: 50%;
+    height: 100%;
+    object-fit: contain;
+}
 .pages img,
 .pages video,
 .pages .model3d {

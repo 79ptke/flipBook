@@ -313,8 +313,8 @@ function pc() {
     //$(".pages:first-child").addClass("current");
     // next, prev 버튼 추가
     $(".pages").append(`
-        <div class="btn prev" alt="이전버튼">&lt;</div>
-        <div class="btn next" alt="다음버튼">&gt;</div>
+        <div class="btn prev" alt="이전버튼"><img src="./src/img/prev.svg" alt="이전 버튼"></div>
+        <div class="btn next" alt="다음버튼"><img src="./src/img/next.svg" alt="이전 버튼"></div>
     `);
 
     // id추가
