@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="37" height="64" viewBox="0 0 37 64">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: none;
+        stroke: #000;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+        stroke-width: 8px;
+        fill-rule: evenodd;
+      }
+    </style>
+  </defs>
+  <path id="Rectangle_3_copy" data-name="Rectangle 3 copy" class="cls-1" d="M32.026,59.022L4.956,31.287,32.026,3.992"/>
+</svg>
