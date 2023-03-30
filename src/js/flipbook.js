@@ -309,8 +309,6 @@ function pc() {
     for (let i = 0; i < divs.length; i += 2) {
         divs.slice(i, i + 2).wrapAll("<section class='pages'></section>");
     }
-    // 첫번째 페이지에 current 클래스 추가
-    //$(".pages:first-child").addClass("current");
     // next, prev 버튼 추가
     $(".pages").append(`
         <div class="btn prev" alt="이전버튼"><img src="./src/img/prev.svg" alt="이전 버튼"></div>
@@ -341,7 +339,6 @@ function pc() {
 // 모바일 사이즈
 function mobile() {
     $("#flipBook").removeClass("pc").addClass("mobile"); 
-    //var index = $('.pages.current').index();
     var index = $(".pages.current").find('.front').attr('data-item'); 
     $(".front").removeClass("back");
     $(".front").unwrap(".pages"); // 기존에 있는 pages 없애기
