@@ -1,13 +1,28 @@
 # DH-Responsive-FlipBook
 - 제이쿼리로 만든 반응형 웹북 
 
-# 특징
+## 특징
 - 이미지,텍스트,음성,비디오뿐만아니라 3d도 넣을 수 있다.
 - 메뉴 기능이 있어 원하는 페이지로 바로 넘어갈 수 있다.
 - 원하는 페이지를 북마크 기능으로 표시할 수 있다.
 - pc일때는 2페이지, 모바일일때는 1장으로 보인다.
 
-# 코드 설명
+## 사용법
+```js
+<div class="front card" title="6 페이지">
+    <model-viewer class="model3d"   style="height: 60%;" alt="3d 모델" src="./src/img/Thonker.glb" ar ar-modes="webxr scene-viewer quick-look" camera-controls poster="poster.webp" shadow-intensity="1">
+    </model-viewer>
+    <div class="txtArea" style="height: 30%; margin-top: 10%;">
+        <p style="color: #000;">
+            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Voluptatem corporis numquam omnis sequi dignissimos vero molestiae, illo officia dolorum aperiam odit, eaque quibusdam facilis sed esse modi amet laborum corrupti.
+        </p>
+    </div>
+</div>
+```
+front페이지 안에 원하는 컨텐츠를 넣어준다.  
+여기서 title은 목차에 들어가는 메뉴 이름이다.
+
+## 코드 설명
 ```js
     // 반응형
     if(window.innerWidth > 768) {
@@ -177,6 +192,12 @@ wrapper안에 있는 front클래스를 가진 div들을 2개씩 pages라는 새�
 짝수 페이지라면 그 페이지의 전 페이지에 flipped이라는 클래스를 더하고,  
 홀수 페이지라면 본인이 flipped 클래스를 가지고 그 다음페이지에 current라는 클래스가 오도록 해서  
 페이지가 꼬이지 않도록 한다.
+모바일 함수도 마찬가지로 구성되어 있다.
 
+## 주의사항
+pc에서 모바일로 바뀔때 2장씩 보이는 페이지가 한장으로 변하면서  
+.front를 감싸고 있던 .pages의 id도 변경이 된다.  
+그러므로 css 작업시 .pages의 id로 잡기보단  
+.front에 따로 class를 추가해서 작업을 해야한다.
 
 
